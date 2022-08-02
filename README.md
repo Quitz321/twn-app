@@ -1,2 +1,2 @@
-# twn_react
-Twen react homework
+# twn-app
+Twn react homework
