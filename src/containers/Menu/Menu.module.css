@@ -1,0 +1,8 @@
+.general {
+  grid-column: 1;
+  padding: 1.5625rem;
+}
+.logo {
+  margin: 1.5625rem 0 3.125rem;
+  cursor: pointer;
+}
