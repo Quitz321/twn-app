@@ -1,6 +1,10 @@
 .general {
   grid-column: 1;
   padding: 1.5625rem;
+  height: 100vh;
+  z-index: 900;
+  overflow: auto;
+  box-sizing: border-box;
 }
 .logo {
   margin: 1.5625rem 0 3.125rem;

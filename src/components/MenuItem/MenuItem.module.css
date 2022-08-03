@@ -1,0 +1,30 @@
+a {
+    display: flex;
+    padding: 0.7rem 1rem;
+    justify-content: right;
+    margin: 0 -1.25rem;
+    text-decoration: none;
+    font-size: 1.1875rem;
+    text-transform: uppercase;
+    transition: transform .25s;
+    transform-origin: right center;
+    align-items: center;
+    color: #3a3d57;
+    
+}
+a:hover {
+    transform: scale(1.05);
+    color: #03875c;
+
+}
+
+img {
+    display: inline-block;
+    margin-left: 0.625rem;
+}
+
+li {
+    list-style: none;
+    text-align: right;
+    
+}
