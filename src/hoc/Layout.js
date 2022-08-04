@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import Menu from "../containers/Menu/Menu"
-import Content from "../containers/Content/Content"
+import Menu from "../components/Menu/Menu"
+import Content from "../components/Content/Content"
 
 import classes from './Layout.module.css';
 

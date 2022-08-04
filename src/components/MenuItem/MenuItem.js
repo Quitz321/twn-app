@@ -6,7 +6,7 @@ const MenuItem = (props) => (
     <li className={classes.general}>
         <a href={props.route}>
             {props.name}
-            <img src="TW_favicon_32x32.png"></img>
+            <img src={props.icon} width="17" height="20" class={classes.image}></img>
         </a>
     </li>
     
