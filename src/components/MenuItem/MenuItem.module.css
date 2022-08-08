@@ -1,4 +1,4 @@
-a {
+.item {
     display: flex;
     padding: 0.7rem 1rem;
     justify-content: right;
@@ -14,13 +14,13 @@ a {
     transition-timing-function: ease;
     
 }
-a:hover {
+.item:hover {
     transform: scale(1.05);
     filter: invert(27%) sepia(83%) saturate(4917%) hue-rotate(155deg) brightness(94%) contrast(98%);
 
 }
 
-a:hover .image {
+.item:hover .image {
     transform: scale(1.35);
     transition: transform .25s;
     transform-origin: center;
