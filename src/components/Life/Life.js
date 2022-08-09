@@ -11,7 +11,7 @@ class Life extends Component {
     speed: "Normal",
     initial: 50,
     alive: null,
-    status: "pause",
+    running: false,
     grid: null
   }
 
@@ -39,10 +39,6 @@ class Life extends Component {
 
   componentDidMount() {
     this.createGrid();
-    setInterval(() => {
-      this.runGame()
-    }, 3000);
-
 
   }
 
@@ -57,33 +53,52 @@ class Life extends Component {
     return (sum / max * 100).toFixed(2)
   }
 
-  runGame() {
-    let gridCopy = JSON.parse(JSON.stringify(this.state.grid));
-    for (let i = 0; i < this.state.height; i++) {
-      for (let j = 0; j < this.state.width; j++) {
-        let neighbors = 0;
-
-        this.positions.forEach(([x, y]) => {
-          const newI = i + x;
-          const newJ = j + y;
-
-          if (newI >= 0 && newI < this.state.height && newJ >= 0 && newJ < this.state.width) {
-            neighbors += this.state.grid[newI][newJ];
-          }
-        });
-
-        if (neighbors < 2 || neighbors > 3) {
-          gridCopy[i][j] = 0;
-        } else if (this.state.grid[i][j] === 0 && neighbors === 3) {
-          gridCopy[i][j] = 1;
-        }
-      }
+  setRunning(e) {
+    e.preventDefault();
+    if (this.state.running) {
+      this.setState({ running: false })
     }
-    this.setState({ grid: gridCopy, alive: this.progress(gridCopy) });
+    else {
+      this.setState({ running: true })
+      this.runGame()
+    }
   }
 
-  componentDidUpdate() {
+  runGame() {
+    if (this.state.running) {
+      let gridCopy = JSON.parse(JSON.stringify(this.state.grid));
+      for (let i = 0; i < this.state.height; i++) {
+        for (let j = 0; j < this.state.width; j++) {
+          let neighbors = 0;
 
+          this.positions.forEach(([x, y]) => {
+            const newI = i + x;
+            const newJ = j + y;
+
+            if (newI >= 0 && newI < this.state.height && newJ >= 0 && newJ < this.state.width) {
+              neighbors += this.state.grid[newI][newJ];
+            }
+          });
+
+          if (neighbors < 2 || neighbors > 3) {
+            gridCopy[i][j] = 0;
+          } else if (this.state.grid[i][j] === 0 && neighbors === 3) {
+            gridCopy[i][j] = 1;
+          }
+        }
+      }
+      setTimeout(() => {
+        this.setState({ grid: gridCopy, alive: this.progress(gridCopy) })
+      }, 1000);
+      ;
+    }
+    else { return }
+  }
+
+  componentDidUpdate(prevState) {
+    if (this.state !== prevState) {
+      this.runGame()
+    }
   }
 
   render() {
@@ -108,7 +123,7 @@ class Life extends Component {
             <input type="select" id="initial" text={this.state.initial + "%"}></input>
           </div>
           <div className={classes.buttonDiv}>
-            <button>{this.state.status}</button>
+            <button onClick={(e) => this.setRunning(e)}>{this.state.running ? "pause" : "start"}</button>
           </div>
           <div className={classes.buttonDiv}>
             <button>apply</button>
