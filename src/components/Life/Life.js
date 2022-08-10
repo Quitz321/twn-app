@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 
 import ProgressBar from '../ProgressBar/ProgressBar';
+import Select from '../Select/Select';
 import classes from "./Life.module.css"
 
 class Life extends Component {
 
   state = {
-    width: 40,
-    height: 40,
+    width: 80,
+    height: 50,
     speed: "Normal",
     initial: 50,
     alive: null,
     running: false,
-    grid: null
+    grid: null,
+    updateGrid: false
   }
 
   positions = [
@@ -26,20 +28,36 @@ class Life extends Component {
     [-1, 0],
   ]
 
+  createValues(start, amount) {
+    return Array(amount).fill(0).map((e, i) => (i * start) + 10)
+  }
+
+
   createGrid = () => {
     const rows = [];
     for (let i = 0; i < this.state.width; i++) {
-      rows.push(Array.from(Array(this.state.height), () => (Math.random() > this.state.initial / 100 ? 1 : 0)));
+      rows.push(Array.from(Array(this.state.height), () => (Math.random() > parseInt(this.state.initial) / 100 ? 1 : 0)));
     }
-    this.setState({ grid: rows, alive: this.progress(rows) });
+    return ({
+      grid: rows,
+      alive: this.progress(rows)
+    })
 
   }
 
   count = (accumulator, curr) => accumulator + curr;
 
   componentDidMount() {
-    this.createGrid();
+    const init = this.createGrid();
+    this.setState({ ...init })
+  }
 
+  changeGame(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const formDataObj = {}
+    formData.forEach((value, key) => (formDataObj[key] = (key === "width" || key === "height") ? parseInt(value) : value));
+    this.setState({ ...formDataObj, updateGrid: true })
   }
 
   progress(grid) {
@@ -89,38 +107,51 @@ class Life extends Component {
       }
       setTimeout(() => {
         this.setState({ grid: gridCopy, alive: this.progress(gridCopy) })
-      }, 1000);
-      ;
+      }, 150);
     }
-    else { return }
+    else { console.log('adsdasd') }
   }
 
-  componentDidUpdate(prevState) {
-    if (this.state !== prevState) {
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.grid !== prevState.grid || this.state.running) {
       this.runGame()
+    }
+    if (this.state.updateGrid === true) {
+      const updatedGrid = this.createGrid()
+      this.setState({ ...updatedGrid, updateGrid: false })
     }
   }
 
   render() {
+    let gridElement = null
+    gridElement = (<div className={classes.grid} style={{ gridTemplateColumns: `repeat(${parseInt(this.state.width)}, 12.5px)` }}>
+      {this.state.grid?.map((rows, i) =>
+        rows.map((col, k) => (
+          <div key={this.state.grid[i][k].index} className={classes.cell}
+            style={{
+              backgroundColor: this.state.grid[i][k] ? "#FFF" : "#adf0d028",
+            }}
+          />
+        ))
+      ) || "Not loaded yet"}
+    </div>)
+
+
     return (
       <div className={classes.wrapper}>
         <h1 className={classes.title}>CONWAYS GAME OF LIFE</h1>
-        <form>
+        <form onSubmit={(e) => { this.changeGame(e) }}>
           <div className={classes.inputDiv}>
-            <label for="width">Grid width</label>
-            <input type="select" id="width" text={this.state.width}></input>
+            <Select label="Grid width" name="width" values={this.createValues(10, 8)} value={this.state.width} />
           </div>
           <div className={classes.inputDiv}>
-            <label for="height">Grid height</label>
-            <input type="select" id="height" text={this.state.height}></input>
+            <Select label="Grid height" name="height" values={this.createValues(10, 5)} value={this.state.height} />
           </div>
           <div className={classes.inputDiv}>
-            <label for="speed" >Speed</label>
-            <input type="select" id="speed" text={this.state.speed}></input>
+            <Select label="Speed" name="speed" values={[20, 30, 40]} />
           </div>
           <div className={classes.inputDiv}>
-            <label for="initial" >Initial life probability</label>
-            <input type="select" id="initial" text={this.state.initial + "%"}></input>
+            <Select label="Initial life probability" name="initial" values={this.createValues(10, 10)} value={this.state.initial} />
           </div>
           <div className={classes.buttonDiv}>
             <button onClick={(e) => this.setRunning(e)}>{this.state.running ? "pause" : "start"}</button>
@@ -130,17 +161,7 @@ class Life extends Component {
           </div>
         </form>
         <ProgressBar alive={this.state.alive + "%"} />
-        <div className={classes.grid} style={{ gridTemplateColumns: `repeat(${this.state.width}, 12.5px)` }}>
-          {this.state.grid?.map((rows, i) =>
-            rows.map((col, k) => (
-              <div className={classes.cell}
-                style={{
-                  backgroundColor: this.state.grid[i][k] ? "#FFF" : "#adf0d028",
-                }}
-              />
-            ))
-          ) || "Not loaded yet"}
-        </div>
+        {gridElement}
       </div>
     )
   }

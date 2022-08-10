@@ -61,6 +61,13 @@ button:hover {
   box-sizing: border-box;
  }
 
+ select {
+  width: 100%;
+  font-size: .75rem;
+  padding: 0.85em 1.7em;
+  box-sizing: border-box;
+ }
+
  .buttonDiv {
   text-align: center;
   flex-grow: 1;
@@ -78,8 +85,7 @@ button:hover {
     display: grid;
     width: fit-content;
     padding-top: 20px;
-    box-sizing: border-box;
-    text-align: center;
+
  }
 
  .cell {
