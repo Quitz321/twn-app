@@ -83,43 +83,47 @@ class Life extends Component {
   }
 
   runGame() {
-    if (this.state.running) {
-      let gridCopy = JSON.parse(JSON.stringify(this.state.grid));
-      for (let i = 0; i < this.state.height; i++) {
-        for (let j = 0; j < this.state.width; j++) {
+    const currState = this.state
+    if (currState.running) {
+      let gridCopy = JSON.parse(JSON.stringify(currState.grid));
+      for (let i = 0; i < currState.height; i++) {
+        for (let j = 0; j < currState.width; j++) {
           let neighbors = 0;
 
           this.positions.forEach(([x, y]) => {
             const newI = i + x;
             const newJ = j + y;
 
-            if (newI >= 0 && newI < this.state.height && newJ >= 0 && newJ < this.state.width) {
-              neighbors += this.state.grid[newI][newJ];
+            if (newI >= 0 && newI < currState.height && newJ >= 0 && newJ < currState.width) {
+              neighbors += currState.grid[newI][newJ];
             }
           });
 
           if (neighbors < 2 || neighbors > 3) {
             gridCopy[i][j] = 0;
-          } else if (this.state.grid[i][j] === 0 && neighbors === 3) {
+          } else if (currState.grid[i][j] === 0 && neighbors === 3) {
             gridCopy[i][j] = 1;
           }
         }
       }
       setTimeout(() => {
-        this.setState({ grid: gridCopy, alive: this.progress(gridCopy) })
+        if (currState === this.state) {
+          this.setState({ grid: gridCopy, alive: this.progress(gridCopy) })
+        } else { return }
       }, 150);
     }
-    else { console.log('adsdasd') }
+    else { return }
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.state.grid !== prevState.grid || this.state.running) {
-      this.runGame()
-    }
     if (this.state.updateGrid === true) {
       const updatedGrid = this.createGrid()
       this.setState({ ...updatedGrid, updateGrid: false })
     }
+    else if (this.state.grid !== prevState.grid || this.state.running) {
+      this.runGame()
+    }
+
   }
 
   render() {
