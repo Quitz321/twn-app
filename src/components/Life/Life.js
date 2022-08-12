@@ -9,12 +9,13 @@ class Life extends Component {
   state = {
     width: 80,
     height: 50,
-    speed: "Normal",
-    initial: 50,
+    speed: 'Normal',
+    initial: 60,
     alive: null,
     running: false,
     grid: null,
-    updateGrid: false
+    updateGrid: false, 
+    loading: false,
   }
 
   positions = [
@@ -32,6 +33,21 @@ class Life extends Component {
     return Array(amount).fill(0).map((e, i) => (i * start) + 10)
   }
 
+  setSpeed(value) {
+    let speed = 0
+    switch (value) {
+      case "Fast":
+        speed = 50
+        break;
+      case "Slow":
+        speed = 200
+        break;
+      default:
+        speed = 100
+        break;
+    }
+    return speed
+  }
 
   createGrid = () => {
     const rows = [];
@@ -57,7 +73,12 @@ class Life extends Component {
     const formData = new FormData(e.target);
     const formDataObj = {}
     formData.forEach((value, key) => (formDataObj[key] = (key === "width" || key === "height") ? parseInt(value) : value));
-    this.setState({ ...formDataObj, updateGrid: true })
+    const updatedFormData= {
+      ...formDataObj,
+      speed: formDataObj['speed']
+    }
+    
+    this.setState({ ...updatedFormData, updateGrid: true})
   }
 
   progress(grid) {
@@ -83,18 +104,19 @@ class Life extends Component {
   }
 
   runGame() {
-    const currState = this.state
-    if (currState.running) {
+    console.log(this.state.speed)
+    const currState = {...this.state}
+    if (currState.running && currState.grid.length === this.state.width) {
       let gridCopy = JSON.parse(JSON.stringify(currState.grid));
-      for (let i = 0; i < currState.height; i++) {
-        for (let j = 0; j < currState.width; j++) {
+      for (let i = 0; i < currState.width; i++) {
+        for (let j = 0; j < currState.height; j++) {
           let neighbors = 0;
 
           this.positions.forEach(([x, y]) => {
             const newI = i + x;
             const newJ = j + y;
 
-            if (newI >= 0 && newI < currState.height && newJ >= 0 && newJ < currState.width) {
+            if (newI >= 0 && newI < currState.width && newJ >= 0 && newJ < currState.height) {
               neighbors += currState.grid[newI][newJ];
             }
           });
@@ -107,10 +129,10 @@ class Life extends Component {
         }
       }
       setTimeout(() => {
-        if (currState === this.state) {
+        if (currState.grid === this.state.grid) {
           this.setState({ grid: gridCopy, alive: this.progress(gridCopy) })
         } else { return }
-      }, 150);
+      }, this.setSpeed(this.state.speed));
     }
     else { return }
   }
@@ -118,7 +140,7 @@ class Life extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (this.state.updateGrid === true) {
       const updatedGrid = this.createGrid()
-      this.setState({ ...updatedGrid, updateGrid: false })
+      this.setState({ ...updatedGrid, updateGrid: false})
     }
     else if (this.state.grid !== prevState.grid || this.state.running) {
       this.runGame()
@@ -127,8 +149,7 @@ class Life extends Component {
   }
 
   render() {
-    let gridElement = null
-    gridElement = (<div className={classes.grid} style={{ gridTemplateColumns: `repeat(${parseInt(this.state.width)}, 12.5px)` }}>
+    let gridElement = (<div className={classes.grid} style={{ gridTemplateColumns: `repeat(${parseInt(this.state.width)}, 12.5px)` }}>
       {this.state.grid?.map((rows, i) =>
         rows.map((col, k) => (
           <div key={this.state.grid[i][k].index} className={classes.cell}
@@ -139,6 +160,7 @@ class Life extends Component {
         ))
       ) || "Not loaded yet"}
     </div>)
+    
 
 
     return (
@@ -152,7 +174,7 @@ class Life extends Component {
             <Select label="Grid height" name="height" values={this.createValues(10, 5)} value={this.state.height} />
           </div>
           <div className={classes.inputDiv}>
-            <Select label="Speed" name="speed" values={[20, 30, 40]} />
+            <Select label="Speed" name="speed" values={['Slow', 'Fast', 'Normal']} value={this.state.speed} />
           </div>
           <div className={classes.inputDiv}>
             <Select label="Initial life probability" name="initial" values={this.createValues(10, 10)} value={this.state.initial} />
@@ -165,7 +187,10 @@ class Life extends Component {
           </div>
         </form>
         <ProgressBar alive={this.state.alive + "%"} />
+        <div>
         {gridElement}
+        </div>
+        
       </div>
     )
   }
