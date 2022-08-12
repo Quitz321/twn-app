@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios';
 
-import { TableRow } from "../Tablerow/TableRow";
+import TableRow from "../TableRow/TableRow";
 
 import classes from './Table.module.css'
 
@@ -9,7 +9,8 @@ import classes from './Table.module.css'
 class Table extends Component {
 
   state = {
-    data: null
+    data: null,
+    page: 1
   }
 
   componentDidMount() {
@@ -23,6 +24,13 @@ class Table extends Component {
 
 
   render() {
+    let rows;
+    if (this.state.data) {
+      rows = this.state.data?.map((item, i) => (
+        <TableRow key={i} data={item} />
+      ),
+      )
+    }
     return (
       <div>
         <table>
@@ -36,10 +44,7 @@ class Table extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.data.map((item, i) => (
-              <TableRow data={item[i]} />
-            )
-            )}
+            {rows}
           </tbody>
         </table>
       </div>

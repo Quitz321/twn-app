@@ -4,16 +4,14 @@ const TableRow = (props) => {
 
 
   return (
-    <div> {props.data.map((item, i) => (
-      <tr>
-        <td>{item[i].firstname}</td>
-        <td>{item[i].surname}</td>
-        <td>{item[i].sex}</td>
-        <td>{item[i].date}</td>
-        <td>{item[i].phone}</td>
-      </tr>
-    ))}
-    </div>)
+    <tr>
+      <td key="firstname">{props.data.firstname}</td>
+      <td key="surname">{props.data.surname}</td>
+      <td key="sex">{props.data.sex}</td>
+      <td key="date">{props.data.date}</td>
+      <td key="phone">{props.data.phone}</td>
+    </tr>
+  )
 }
 
 export default TableRow;

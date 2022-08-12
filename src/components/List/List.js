@@ -8,11 +8,6 @@ const List = (props) => {
 
 
 
-
-
-
-
-
   return (
     <div className={classes.wrapper}>
       <div>
