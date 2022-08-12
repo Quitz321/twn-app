@@ -1,9 +1,22 @@
-h1 {
+.title {
   font-size: 2.8125rem;
-  color: #14cc76;
+  color: #FFF;
   font-weight: 700;
-  margin: 0;
   text-transform: uppercase;
   box-sizing: border-box;
+}
 
+.table {
+  
+  width: 100%;
+  box-sizing: border-box;
+  color: #FFF;
+  margin-top: 30px;
+  border-bottom: #fff 0.0625rem solid;
+}
+
+.wrapper {
+  display: block;
+  margin-bottom: auto;
+  width: 100%;
 }

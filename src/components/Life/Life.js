@@ -14,7 +14,7 @@ class Life extends Component {
     alive: null,
     running: false,
     grid: null,
-    updateGrid: false, 
+    updateGrid: false,
     loading: false,
   }
 
@@ -51,8 +51,8 @@ class Life extends Component {
 
   createGrid = () => {
     const rows = [];
-    for (let i = 0; i < this.state.width; i++) {
-      rows.push(Array.from(Array(this.state.height), () => (Math.random() > parseInt(this.state.initial) / 100 ? 1 : 0)));
+    for (let i = 0; i < this.state.height; i++) {
+      rows.push(Array.from(Array(this.state.width), () => (Math.random() > parseInt(this.state.initial) / 100 ? 1 : 0)));
     }
     return ({
       grid: rows,
@@ -73,12 +73,12 @@ class Life extends Component {
     const formData = new FormData(e.target);
     const formDataObj = {}
     formData.forEach((value, key) => (formDataObj[key] = (key === "width" || key === "height") ? parseInt(value) : value));
-    const updatedFormData= {
+    const updatedFormData = {
       ...formDataObj,
       speed: formDataObj['speed']
     }
-    
-    this.setState({ ...updatedFormData, updateGrid: true})
+
+    this.setState({ ...updatedFormData, updateGrid: true })
   }
 
   progress(grid) {
@@ -104,23 +104,21 @@ class Life extends Component {
   }
 
   runGame() {
-    console.log(this.state.speed)
-    const currState = {...this.state}
-    if (currState.running && currState.grid.length === this.state.width) {
+    const currState = { ...this.state }
+    if (currState.running) {
       let gridCopy = JSON.parse(JSON.stringify(currState.grid));
-      for (let i = 0; i < currState.width; i++) {
-        for (let j = 0; j < currState.height; j++) {
+      for (let i = 0; i < currState.height; i++) {
+        for (let j = 0; j < currState.width; j++) {
           let neighbors = 0;
 
           this.positions.forEach(([x, y]) => {
             const newI = i + x;
             const newJ = j + y;
 
-            if (newI >= 0 && newI < currState.width && newJ >= 0 && newJ < currState.height) {
+            if (newI >= 0 && newI < currState.height && newJ >= 0 && newJ < currState.width) {
               neighbors += currState.grid[newI][newJ];
             }
           });
-
           if (neighbors < 2 || neighbors > 3) {
             gridCopy[i][j] = 0;
           } else if (currState.grid[i][j] === 0 && neighbors === 3) {
@@ -130,7 +128,9 @@ class Life extends Component {
       }
       setTimeout(() => {
         if (currState.grid === this.state.grid) {
-          this.setState({ grid: gridCopy, alive: this.progress(gridCopy) })
+          this.setState({
+            grid: gridCopy, alive: this.progress(gridCopy)
+          })
         } else { return }
       }, this.setSpeed(this.state.speed));
     }
@@ -140,7 +140,7 @@ class Life extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (this.state.updateGrid === true) {
       const updatedGrid = this.createGrid()
-      this.setState({ ...updatedGrid, updateGrid: false})
+      this.setState({ ...updatedGrid, updateGrid: false })
     }
     else if (this.state.grid !== prevState.grid || this.state.running) {
       this.runGame()
@@ -149,18 +149,18 @@ class Life extends Component {
   }
 
   render() {
-    let gridElement = (<div className={classes.grid} style={{ gridTemplateColumns: `repeat(${parseInt(this.state.width)}, 12.5px)` }}>
+    let gridElement = (<div className={classes.grid} style={{ gridTemplateColumns: `repeat(${parseInt(this.state.width)}, 12px)`, }}>
       {this.state.grid?.map((rows, i) =>
         rows.map((col, k) => (
-          <div key={this.state.grid[i][k].index} className={classes.cell}
+          <div key={[i, k]} className={classes.cell}
             style={{
-              backgroundColor: this.state.grid[i][k] ? "#FFF" : "#adf0d028",
+              backgroundColor: this.state.grid[i][k] ? "#FFF" : "#adf0d028"
             }}
           />
         ))
       ) || "Not loaded yet"}
     </div>)
-    
+
 
 
     return (
@@ -188,9 +188,9 @@ class Life extends Component {
         </form>
         <ProgressBar alive={this.state.alive + "%"} />
         <div>
-        {gridElement}
+          {gridElement}
         </div>
-        
+
       </div>
     )
   }
