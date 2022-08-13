@@ -1,4 +1,4 @@
-import React, { Component, Suspense } from "react";
+import React, { Component } from "react";
 import axios from "axios";
 
 import classes from "./Article.module.css"
@@ -13,7 +13,7 @@ class Article extends Component {
   }
 
   componentDidMount () {
-    const data = axios.get('https://midaiganes.irw.ee/api/list/' + this.state.id).then((res) => {
+    axios.get('https://midaiganes.irw.ee/api/list/' + this.state.id).then((res) => {
       this.setState({data: res.data, render: true})
     })
     
@@ -36,7 +36,7 @@ class Article extends Component {
         </div>
         <div className={classes.imageWrapper}>
           <div className={classes.blur}>
-            <img className={classes.background-image} src={image.large} height="400" width="100%"></img>
+            <img className={classes.background-image} src={image.large} alt={image.alt + "blurred decorative"} height="400" width="100%"></img>
           </div>
           <img className={classes.image} src={image.small} height="400px" width="600px" alt={image.alt} title={image.title}></img>
         </div>
