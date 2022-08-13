@@ -3,9 +3,31 @@ th {
   padding: 0.625rem 1rem;
   font-size: 16px;
   font-family: 'Open Sans', sans-serif;
+  border-bottom: #fff 0.0625rem solid;
 }
 table {
   table-layout: fixed;
   width: 100%;
   text-align: left;
+  text-indent: initial;
+  border-spacing: 2px;
+  border-collapse: collapse;
+  
+  
+}
+tr {
+  display: table-row;
+  vertical-align: middle;
+  padding: 0.625rem 1rem;
+  
+  
+}
+tr:nth-child(odd) {
+  background-color: rgba(255,255,255,.1);
+}
+td {
+  font-size: 1rem;
+  font-family: 'Open Sans', sans-serif;
+  padding: 0.625rem 1rem;
+  border-bottom: #fff 0.0625rem solid;
 }
