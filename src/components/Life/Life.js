@@ -180,10 +180,10 @@ class Life extends Component {
             <Select label="Initial life probability" name="initial" values={this.createValues(10, 10)} value={this.state.initial} />
           </div>
           <div className={classes.buttonDiv}>
-            <button onClick={(e) => this.setRunning(e)}>{this.state.running ? "pause" : "start"}</button>
+            <button className={classes.btn} onClick={(e) => this.setRunning(e)}>{this.state.running ? "pause" : "start"}</button>
           </div>
           <div className={classes.buttonDiv}>
-            <button>apply</button>
+            <button className={classes.btn}>apply</button>
           </div>
         </form>
         <ProgressBar alive={this.state.alive + "%"} />

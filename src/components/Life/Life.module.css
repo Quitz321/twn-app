@@ -24,7 +24,7 @@ label {
   box-sizing: border-box;
 }
 
-button {
+.btn{
   font-size: .75rem;
   margin-top: 1.5rem;
   padding: 0.85em 1.7em;
@@ -40,7 +40,7 @@ button {
   box-sizing: border-box;
 
 }
-button:hover {
+.btn:hover {
   background-color: #41e592;
   color: #3a3d57;
 }

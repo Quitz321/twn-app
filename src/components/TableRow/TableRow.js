@@ -1,5 +1,7 @@
 import React from "react";
 
+import classes from './TableRow.module.css';
+
 const TableRow = (props) => {
 
   const getBorn = (personal_code) => {
@@ -14,12 +16,12 @@ const TableRow = (props) => {
   }
 
   return (
-    <tr>
-      <td key="firstname">{props.data.firstname}</td>
-      <td key="surname">{props.data.surname}</td>
-      <td key="sex">{props.data.sex === "m" ? "Mees" : "Naine"}</td>
-      <td key="date">{getBorn(props.data.personal_code)}</td>
-      <td key="phone">{props.data.phone}</td>
+    <tr id={props.id} onClick={props.onClick}>
+      <td id={props.id} key="firstname">{props.data.firstname}</td>
+      <td id={props.id} key="surname">{props.data.surname}</td>
+      <td id={props.id} key="sex">{props.data.sex === "m" ? "Mees" : "Naine"}</td>
+      <td id={props.id} key="date">{getBorn(props.data.personal_code)}</td>
+      <td id={props.id} key="phone">{props.data.phone}</td>
     </tr>
   )
 }

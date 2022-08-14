@@ -39,6 +39,7 @@ class Article extends Component {
             <img className={classes.background-image} src={image.large} alt={image.alt + "blurred decorative"} height="400" width="100%"></img>
           </div>
           <img className={classes.image} src={image.small} height="400px" width="600px" alt={image.alt} title={image.title}></img>
+          <div className={classes.imgTitle}>{image.title}</div>
         </div>
         <div className={classes.body} dangerouslySetInnerHTML={{ __html: body }}>
         </div>
