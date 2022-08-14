@@ -10,14 +10,17 @@ import classes from "./Content.module.css"
 const Content = (props) => {
 
   const defContent = (
-    `<h1>trinidad wiseman</h1>
-    <p>SPA proovitöö</p>`
+    <div>
+      <h1 className={classes.heading}>trinidad wiseman</h1>
+      <p className={classes.para}>SPA proovitöö</p>
+    </div>
+
   )
 
   let showContent;
   switch (props.content) {
     case "/":
-      showContent = parse(defContent)
+      showContent = defContent
       break;
     case "article":
       showContent = <Article />
