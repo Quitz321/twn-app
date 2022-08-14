@@ -1,3 +1,12 @@
+Things that does not work
+
+*Table rows can beclicked open but this part is missing some css and may need a new logic behind it.
+*Read more linsk are not working corectly, and the opened row can not be closed yet.
+*navigation arrows are missing disabled css
+*responsivness needs attention.
+*Code needs refatoring (cleaning up)
+*Could use some automated test coverage.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

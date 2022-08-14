@@ -35,7 +35,7 @@ h1 {
 .blur img {
   transition: transform 300ms ease-in-out;
 }
-.background-image {
+.backgroundImage {
   width: 100%;
   display: block;
   background-size: cover;

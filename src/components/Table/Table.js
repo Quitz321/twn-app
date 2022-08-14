@@ -16,41 +16,41 @@ class Table extends Component {
     selected: null
   }
 
-  select(e){
-    this.setState({selected: e.target.id})
+  select(e) {
+    this.setState({ selected: e.target.id })
   }
 
   naviPage(e) {
     const input = parseInt(e.target.id)
-    const {page} = this.state
-    if (page+input > 0 && page+input <= Math.floor(this.state.data.length/10)+1) {
-      this.setState({page: page+input})
+    const { page } = this.state
+    if (page + input > 0 && page + input <= Math.floor(this.state.data.length / 10) + 1) {
+      this.setState({ page: page + input })
     }
   }
   setPage(e) {
     e.preventDefault();
     const input = parseInt(e.target.id)
-    this.setState({page: input})
+    this.setState({ page: input })
   }
 
   sortElement = () => {
     const { currElement } = this.state
     let sortTypes
-    if(currElement) {
-      if(currElement.id === "personal_code") {
+    if (currElement) {
+      if (currElement.id === "personal_code") {
         const cutoff = (new Date()).getFullYear() - 2000
         const getString = (eInt) => {
           const e = eInt.toString()
-          const year = e.substring(1,3)
+          const year = e.substring(1, 3)
           const y = year > cutoff ? '19' : '20'
-          return y + e.substring(1,7)
+          return y + e.substring(1, 7)
         }
         sortTypes = {
           up: {
-            fn: (a, b) => getString(b[currElement.id]).localeCompare(getString(a[currElement.id])) 
+            fn: (a, b) => getString(b[currElement.id]).localeCompare(getString(a[currElement.id]))
           },
           down: {
-            fn: (a, b) => getString(a[currElement.id]).localeCompare(getString(b[currElement.id])) 
+            fn: (a, b) => getString(a[currElement.id]).localeCompare(getString(b[currElement.id]))
           },
           default: {
             fn: (a, b) => a
@@ -60,7 +60,7 @@ class Table extends Component {
       if (currElement.id !== "personal_code") {
         sortTypes = {
           up: {
-            fn: (a, b) => b[currElement.id].localeCompare(a[currElement.id]) 
+            fn: (a, b) => b[currElement.id].localeCompare(a[currElement.id])
           },
           down: {
             fn: (a, b) => a[currElement.id].localeCompare(b[currElement.id])
@@ -70,38 +70,38 @@ class Table extends Component {
           }
         }
       }
-      
+
     }
     else {
-      
+
       sortTypes = {
         default: {
           fn: (a, b) => a
         }
       }
     }
-      
+
     return sortTypes;
   }
 
 
-  
+
   onSortChange = (e) => {
-		const { currentSort } = this.state;
-		let nextSort;
-    if(this.state.currElement === e.target) {
+    const { currentSort } = this.state;
+    let nextSort;
+    if (this.state.currElement === e.target) {
       if (currentSort === 'down') nextSort = 'up';
       else if (currentSort === 'up') nextSort = 'default';
       else if (currentSort === 'default') nextSort = 'down';
     }
-		else {
+    else {
       nextSort = 'down'
     }
 
-		this.setState({
-			currentSort: nextSort, currElement: e.target
-		});
-	};
+    this.setState({
+      currentSort: nextSort, currElement: e.target
+    });
+  };
 
   componentDidMount() {
     axios.get('https://midaiganes.irw.ee/api/list', {}, { params: { limit: '500' } }
@@ -116,28 +116,28 @@ class Table extends Component {
   render() {
     const getIcon = (element) => {
       if (this.state.currElement) {
-        return this.state.currElement.id === element ? ("sort-"+ this.state.currentSort +".svg") : "sort-default.svg"
-      } else {return "sort-default.svg"}
-      
+        return this.state.currElement.id === element ? ("sort-" + this.state.currentSort + ".svg") : "sort-default.svg"
+      } else { return "sort-default.svg" }
+
     }
     let rows;
     let pages = []
-    let pageNumbers=0;
+    let pageNumbers = 0;
     if (this.state.data) {
-      const {data} = this.state
+      const { data } = this.state
 
       pageNumbers = () => {
-        return data.length % 10 === 0? data.length/10 : Math.floor(data.length/10)+1
+        return data.length % 10 === 0 ? data.length / 10 : Math.floor(data.length / 10) + 1
       }
       for (let i = 0; i < pageNumbers(); i++) {
-        const style = this.state.page === i+1 ? {backgroundColor: "#FFF", color: "#333"} : {};
-        pages[i] = (<button key ={i+1} id={i+1} className={classes.pageBtn} style={style} onClick={(e) => (this.setPage(e))}>{i+1}</button>)
+        const style = this.state.page === i + 1 ? { backgroundColor: "#FFF", color: "#333" } : {};
+        pages[i] = (<button key={i + 1} id={i + 1} className={classes.pageBtn} style={style} onClick={(e) => (this.setPage(e))}>{i + 1}</button>)
       }
 
-      const start = (this.state.page-1)*10
-      const paged = data.slice(start, start+10 < data.length? start+10 : data.length)
+      const start = (this.state.page - 1) * 10
+      const paged = data.slice(start, start + 10 < data.length ? start + 10 : data.length)
       rows = [...paged].sort(this.sortElement()[this.state.currentSort].fn).map((item, i) => (
-          <TableRow id={item.id} onClick={(e) => this.select(e)} key={i} data={item} selected={this.state.selected}/>
+        <TableRow id={item.id} onClick={(e) => this.select(e)} key={i} data={item} selected={this.state.selected} />
       ),
       )
     }
