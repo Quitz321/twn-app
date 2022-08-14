@@ -1,11 +1,10 @@
+Things that does not work:
 
-Things that does not work
-
-*Table rows can beclicked open but this part is missing some css and may need a new logic behind it.
-*Read more linsk are not working corectly, and the opened row can not be closed yet.
-*navigation arrows are missing disabled css
-*responsivness needs attention.
-*Code needs refatoring (cleaning up)
+*Table rows can be clicked open but this part is missing some css and may need a new logic behind it.  
+*Read more links are not working correctly, and the opened row can not be closed yet.  
+*navigation arrows are missing disabled css  
+*responsivness needs attention.  
+*Code needs refatoring (cleaning up)  
 *Could use some automated test coverage.
 
 # Getting Started with Create React App
