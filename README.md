@@ -1,3 +1,4 @@
+
 Things that does not work
 
 *Table rows can beclicked open but this part is missing some css and may need a new logic behind it.
