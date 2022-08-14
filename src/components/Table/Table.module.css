@@ -1,0 +1,81 @@
+th {
+  background-color: #333333;
+  padding: 0.625rem 1rem;
+  font-size: 16px;
+  font-family: 'Open Sans', sans-serif;
+  border-bottom: #fff 0.0625rem solid;
+  cursor: pointer;
+  white-space:nowrap;
+
+
+  
+}
+table {
+  table-layout: fixed;
+  width: 100%;
+  text-align: left;
+  text-indent: initial;
+  border-spacing: 2px;
+  border-collapse: collapse;
+  
+  
+}
+tr {
+  display: table-row;
+  vertical-align: middle;
+  padding: 0.625rem 1rem;
+  
+  
+}
+tr:nth-child(odd) {
+  background-color: rgba(255,255,255,.1);
+}
+td {
+  font-size: 1rem;
+  font-family: 'Open Sans', sans-serif;
+  padding: 0.625rem 1rem;
+  border-bottom: #fff 0.0625rem solid;
+}
+
+.sortIcon {
+  width: 20%;
+  height: 1.5rem;
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(162deg) brightness(101%) contrast(104%);
+  pointer-events: none;
+  padding-top: 8px;
+}
+
+.pages {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 16px;
+  border-bottom: none;
+}
+.pageBtn {
+  background-color:  #3a3d57;;
+  font-size: 1rem;
+  color: #FFF;
+  border: none;
+  width: 2.5em;
+  height: 2.5em;
+  border-radius: 2.5em;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  transition: none;
+  margin-top: 20px;
+  font-family: 'BoosterNextFY';
+  margin-left: 16px;
+}
+.pageBtn:hover {
+  border-color: #FFF;
+  border-radius: 2.5em;
+  border-style: solid;
+  border-width: 2px;
+  
+} 
+.pageBtn:active {
+  background: #FFF;
+  color: #333;
+}

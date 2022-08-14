@@ -1,0 +1,12 @@
+.general {
+  grid-column: 1;
+  padding: 1.5625rem;
+  height: 100vh;
+  z-index: 900;
+  box-sizing: border-box;
+  position: fixed;
+}
+.logo {
+  margin: 1.5625rem 0 3.125rem;
+  cursor: pointer;
+}
