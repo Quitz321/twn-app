@@ -27,3 +27,13 @@
   box-sizing: border-box;
   margin: auto;
 }
+.para {
+  color: #FFF;
+  font-family: "BoosterNextFY";
+  font-size: 39px;
+}
+.heading {
+  color: #14cc76;
+  font-family: "BoosterNextFY";
+  font-size: 45px;
+}
