@@ -139,10 +139,12 @@ class Table extends Component {
       }
 
       const start = (this.state.page - 1) * 10
-      const paged = data.slice(start, start + 10 < data.length ? start + 10 : data.length)
-      rows = [...paged].sort(this.sortElement()[this.state.currentSort].fn).map((item, i) => (
-        <TableRow id={item.id} onClick={(e) => this.select(e)} unSelect={this.unSelect} key={i} data={item} selected={this.state.selected} />
-      ),
+      rows = [...data].sort(this.sortElement()[this.state.currentSort].fn).map((item, i) => {
+        if (i >= start && (i < start+10 && i < data.length)){
+          return (<TableRow id={item.id} onClick={(e) => this.select(e)} unSelect={this.unSelect} key={i} data={item} selected={this.state.selected} />)
+        }
+        
+      },
       )
     }
     return (
