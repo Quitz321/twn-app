@@ -6,9 +6,9 @@ import classes from "./MenuItems.module.css"
 
 const MenuItems = (props) => (
     <ul className={classes.general}>
-        <MenuItem name="Artikkel" route="/article/972d2b8a" icon="file-solid.svg"></MenuItem>
-        <MenuItem name="Tabel" route="/list" icon="table-solid.svg"></MenuItem>
-        <MenuItem name="Game of life" route="/life" icon="image-solid.svg"></MenuItem>
+        <MenuItem name="Artikkel" route="/article/972d2b8a" icon="/file-solid.svg"></MenuItem>
+        <MenuItem name="Tabel" route="/list" icon="/table-solid.svg"></MenuItem>
+        <MenuItem name="Game of life" route="/life" icon="/image-solid.svg"></MenuItem>
     </ul>
 )
 
