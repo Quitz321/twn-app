@@ -2,8 +2,9 @@
   border-bottom: #fff 0.0625rem solid;
 }
 .datarow {
-  grid-template-columns: repeat(5, 100%);
-  display: grid;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
   color: black;
   font-size: 1rem;
   font-family: 'Open Sans', sans-serif;
@@ -14,30 +15,43 @@
   margin-left: 10px;
   margin-top: 10px;
   background-color: #fff;
+  width: 100%;
 }
 .intro {
-  display: grid;
-  grid-template-columns: repeat(3, 100%);
+  display: flex;
+  flex-direction: row;
   margin-top: 10px;
-  width: 100%;
+
   color: black;
+}
+
+.tdOpen {
+  width: 100%;
+  background-color: #fff;
+}
+.trOpen {
+  width: 100%;
   background-color: #fff;
 }
 
 .image {
-  padding: 10px;
+  margin: 10px;
 }
 
-.wrapper {
-  width: 100%;
+.introSub {
   display: flex;
   flex-direction: column;
-  background-color: #fff;
+}
+
+.introSub a {
+  margin: auto;
+  margin-left: 0;
+
+
 }
 
 button{
   font-size: .75rem;
-  margin-top: 1.5rem;
   padding: 0.85em 1.7em;
   text-align: center;
   cursor: pointer;
@@ -47,7 +61,5 @@ button{
   border-width: 0;
   color: #3a3d57;
   text-transform: uppercase;
-  width: 100%;
   box-sizing: border-box;
-
 }

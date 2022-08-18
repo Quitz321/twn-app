@@ -15,10 +15,16 @@ const TableRow = (props) => {
 
     return (day + '.' + month + '.' + (year > cutoff ? '19' : '20') + year)
   }
+  const unSelect = () => {
+    props.unSelect()
+  }
+
   const tableRow = () => {
     if (props.selected === props.id) {
       return (
-        <div className={classes.wrapper}>
+        <tr onClick={unSelect} className={classes.trOpen}>
+          <td colSpan="5" className={classes.tdOpen}>
+
           <div className={classes.datarow}>
             <div>{props.data.firstname}</div>
             <div>{props.data.surname}</div>
@@ -29,13 +35,18 @@ const TableRow = (props) => {
           <div>
             <div className={classes.intro}>
               <img className={classes.image} alt={props.data.images.title} src={props.data.image.small} width="200px" height="180px"></img>
-              <p>{props.data.intro}</p>
-              <Link to={{ pathname: "/article", query: { id: props.data.id } }}>
-                <button>LOE ROHKEM</button>
-              </Link>
+              <div className={classes.introSub}>
+                <div dangerouslySetInnerHTML={{ __html: props.data.intro }}></div>
+                <Link to={{ pathname: "/article/" + props.data.id}}>
+                  <button>LOE ROHKEM</button>
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
+          </td>
+        </tr>
+
+        
       )
     }
     else {
