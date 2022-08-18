@@ -1,7 +1,5 @@
 Things that does not work:
 
-*Table rows can be clicked open but this part is missing some css and may need a new logic behind it.  
-*Read more links are not working correctly, and the opened row can not be closed yet.  
 *navigation arrows are missing disabled css  
 *responsivness needs attention.  
 *Code needs refatoring (cleaning up)  
