@@ -23,7 +23,7 @@ const Content = (props) => {
       showContent = defContent
       break;
     case "article":
-      showContent = <Article />
+      showContent = <Article id={props.id}/>
       break;
     case "list":
       showContent = <List />

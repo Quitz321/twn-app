@@ -8,7 +8,7 @@ import classes from "./Menu.module.css";
 const Menu = (props) => (
   <div className={classes.general}>
     <Link to="/">
-      <img className={classes.logo} src="logo.svg" alt="logo" aria-label="TWN logo"></img>
+      <img className={classes.logo} src="/logo.svg" alt="logo" aria-label="TWN logo"></img>
     </Link>
     <MenuItems></MenuItems>
   </div>

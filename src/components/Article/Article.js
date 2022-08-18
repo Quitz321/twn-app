@@ -6,15 +6,14 @@ import classes from "./Article.module.css"
 class Article extends Component {
 
   state = {
-    id: '972d2b8a',
     data: null,
     render: false
 
   }
 
+
   componentDidMount() {
-    console.log(this.props)
-    axios.get('https://midaiganes.irw.ee/api/list/' + this.state.id).then((res) => {
+    axios.get('https://midaiganes.irw.ee/api/list/' + this.props.id).then((res) => {
       this.setState({ data: res.data, render: true })
     })
 
@@ -29,7 +28,7 @@ class Article extends Component {
     if (this.state.render) {
       elements = (
         <div className={classes.wrapper}>
-          <div className={classes.title}>
+          <div>
             <h1>{title}</h1>
           </div>
           <div>
@@ -37,7 +36,7 @@ class Article extends Component {
           </div>
           <div className={classes.imageWrapper}>
             <div className={classes.blur}>
-              <img className={classes.background - image} src={image.large} alt={image.alt + "blurred decorative"} height="400" width="100%"></img>
+              <img className={classes.bbackgroundImage} src={image.large} alt={image.alt + "blurred decorative"} height="400" width="100%"></img>
             </div>
             <img className={classes.image} src={image.small} height="400px" width="600px" alt={image.alt} title={image.title}></img>
             <div className={classes.imgTitle}>{image.title}</div>
